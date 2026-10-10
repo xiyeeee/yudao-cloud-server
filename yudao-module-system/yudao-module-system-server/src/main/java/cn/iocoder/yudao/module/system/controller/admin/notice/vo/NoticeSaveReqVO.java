@@ -29,4 +29,8 @@ public class NoticeSaveReqVO {
     @Schema(description = "状态，参见 CommonStatusEnum 枚举类", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     private Integer status;
 
+    @Schema(description = "备注", example = "123")
+    @NotNull(message = "备注不能为空")
+    private String remark;
+
 }

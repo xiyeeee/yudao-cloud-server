@@ -44,4 +44,6 @@ public class NoticeDO extends BaseDO {
      */
     private Integer status;
 
+    private String remark;
+
 }

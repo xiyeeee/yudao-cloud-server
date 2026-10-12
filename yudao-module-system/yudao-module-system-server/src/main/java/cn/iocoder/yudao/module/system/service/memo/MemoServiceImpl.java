@@ -14,6 +14,7 @@ import java.util.List;
 
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static cn.iocoder.yudao.module.system.enums.ErrorCodeConstants.MEMO_NOT_EXIST;
+import static cn.iocoder.yudao.module.system.enums.ErrorCodeConstants.MEMO_TITLE_EXIST;
 
 @Service
 public class MemoServiceImpl implements  MemoService{
@@ -23,6 +24,7 @@ public class MemoServiceImpl implements  MemoService{
 
     @Override
     public Long CreatMemo(MemoSaveReqVO memoSaveReqVO) {
+        validateMemoTitleExist(memoSaveReqVO);
         MemoDO memoDO = BeanUtils.toBean(memoSaveReqVO,MemoDO.class);
         memoMapper.insert(memoDO);
         return memoDO.getId();
@@ -30,6 +32,7 @@ public class MemoServiceImpl implements  MemoService{
 
     @Override
     public void UpdateMemo(MemoSaveReqVO memoSaveReqVO) {
+        validateMemoTitleExist(memoSaveReqVO);
         validateMemoExist(memoSaveReqVO.getId());
         MemoDO memoDO = BeanUtils.toBean(memoSaveReqVO,MemoDO.class);
         memoMapper.updateById(memoDO);
@@ -68,6 +71,20 @@ public class MemoServiceImpl implements  MemoService{
         if (memo ==null){
             throw exception(MEMO_NOT_EXIST);
         }
+
+    }
+    @VisibleForTesting
+    public void validateMemoTitleExist(MemoSaveReqVO memoSaveReqVO){
+
+        MemoDO  memo =   memoMapper.selectByTitle(memoSaveReqVO.getTitle());
+        Long memoId = memoSaveReqVO.getId();
+        if (memo ==null){
+            return ;
+        }
+        if(memoId  != null && memoId.equals(memo.getId())){
+            return ;
+        }
+        throw exception(MEMO_TITLE_EXIST);
 
     }
 }

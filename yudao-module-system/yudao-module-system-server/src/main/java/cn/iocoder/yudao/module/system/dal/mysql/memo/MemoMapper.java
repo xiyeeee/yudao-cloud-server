@@ -16,4 +16,8 @@ public interface MemoMapper extends BaseMapperX<MemoDO> {
                 .orderByDesc(MemoDO::getId));
     }
 
+    default MemoDO selectByTitle(String title){
+        return selectOne(MemoDO::getTitle,title);
+    }
+
 }

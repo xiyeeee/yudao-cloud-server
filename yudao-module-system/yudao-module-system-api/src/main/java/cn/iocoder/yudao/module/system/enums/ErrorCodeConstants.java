@@ -170,5 +170,7 @@ public interface ErrorCodeConstants {
 
 
     ErrorCode MEMO_NOT_EXIST = new ErrorCode(1_002_029_000, "备忘录不存在");
+    ErrorCode MEMO_TITLE_EXIST = new ErrorCode(1_002_029_000, "备忘录名称已存在");
+
 
 }

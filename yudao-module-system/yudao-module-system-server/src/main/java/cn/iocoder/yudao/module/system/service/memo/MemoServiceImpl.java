@@ -2,6 +2,7 @@ package cn.iocoder.yudao.module.system.service.memo;
 
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
+import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import cn.iocoder.yudao.module.system.controller.admin.memo.vo.MemoPageReqVO;
 import cn.iocoder.yudao.module.system.controller.admin.memo.vo.MemoSaveReqVO;
 import cn.iocoder.yudao.module.system.dal.dataobject.memo.MemoDO;
@@ -51,7 +52,9 @@ public class MemoServiceImpl implements  MemoService{
 
     @Override
     public PageResult<MemoDO> getMemoPage(MemoPageReqVO memoPageReqVO) {
-        return memoMapper.selectPage(memoPageReqVO);
+       Long userId =  SecurityFrameworkUtils.getLoginUserId();
+
+        return memoMapper.selectPage(memoPageReqVO,userId);
     }
 
     @Override

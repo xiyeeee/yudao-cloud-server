@@ -9,10 +9,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MemoMapper extends BaseMapperX<MemoDO> {
-    default PageResult<MemoDO> selectPage(MemoPageReqVO memoPageReqVO) {
+    default PageResult<MemoDO> selectPage(MemoPageReqVO memoPageReqVO,Long userId) {
         return selectPage(memoPageReqVO, new LambdaQueryWrapperX<MemoDO>()
                 .likeIfPresent(MemoDO::getTitle, memoPageReqVO.getTitle())
                 .eqIfPresent(MemoDO::getStatus, memoPageReqVO.getStatus())
+                .eq(MemoDO::getCreator,String.valueOf(userId))
                 .orderByDesc(MemoDO::getId));
     }
 

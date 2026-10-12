@@ -168,4 +168,7 @@ public interface ErrorCodeConstants {
     // ========== 站内信发送 1-002-028-000 ==========
     ErrorCode NOTIFY_SEND_TEMPLATE_PARAM_MISS = new ErrorCode(1_002_028_000, "模板参数({})缺失");
 
+
+    ErrorCode MEMO_NOT_EXIST = new ErrorCode(1_002_029_000, "备忘录不存在");
+
 }
